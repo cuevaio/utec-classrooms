@@ -25,7 +25,7 @@ const tables = [
 	},
 	{
 		name: 'host',
-		columns: [{ name: 'name', type: 'string', notNull: true, defaultValue: 'error' }],
+		columns: [{ name: 'name', type: 'string', unique: true }],
 		revLinks: [{ column: 'host', table: 'event' }]
 	},
 	{
@@ -45,16 +45,15 @@ const defaultOptions = {
 /** @typedef { import('./types').DatabaseSchema } DatabaseSchema */
 /** @extends DatabaseClient<DatabaseSchema> */
 export class XataClient extends DatabaseClient {
-	/** @param { import('@xata.io/client').BaseClientOptions } options */
-	constructor(options) {
+	constructor(options = {}) {
 		super({ ...defaultOptions, ...options }, tables);
 	}
 }
-/** @type { XataClient } */
-let instance;
 
 import { XATA_API_KEY } from '$env/static/private';
 
+/** @type { XataClient | undefined } */
+let instance = undefined;
 /** @type { () => XataClient } */
 export const getXataClient = () => {
 	if (instance) return instance;

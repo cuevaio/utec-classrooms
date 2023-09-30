@@ -75,8 +75,7 @@ declare const tables: readonly [
       {
         readonly name: "name";
         readonly type: "string";
-        readonly notNull: true;
-        readonly defaultValue: "error";
+        readonly unique: true;
       }
     ];
     readonly revLinks: readonly [

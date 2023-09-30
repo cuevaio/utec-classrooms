@@ -76,21 +76,8 @@ export async function POST({ url }) {
 		/** @type {RawEvent[]} */
 		const raw_events = data.content;
 
-		let existing_courses_page = await xata.db.course.getPaginated({
-			pagination: {
-				size: 200
-			}
-		});
-		let existing_courses = existing_courses_page.records;
-
-		let existing_hosts_page = await xata.db.host.getPaginated({
-			pagination: {
-				size: 200
-			}
-		});
-		let existing_hosts = existing_hosts_page.records;
-
 		let existing_events_page = await xata.db.event
+			.select(['*', 'course.*', 'host.*', 'classroom.*'])
 			.filter({
 				$all: [
 					{
@@ -114,6 +101,9 @@ export async function POST({ url }) {
 				}
 			});
 		let existing_events = existing_events_page.records;
+
+		let existing_courses = existing_events.map((e) => e.course).filter((c) => c);
+		let existing_hosts = existing_events.map((e) => e.host).filter((h) => h);
 
 		/** @type {Map<string, Course>} */
 		const coursesMap = new Map();
@@ -149,7 +139,7 @@ export async function POST({ url }) {
 					host = title.split('Docente\t')[1];
 					let parts = title.split('-');
 					let course_code = parts[0];
-					if (!existing_courses.find((c) => c.code === course_code)) {
+					if (!existing_courses.find((c) => c?.code === course_code)) {
 						let name = parts[1].trim();
 						coursesMap.set(course_code, { code: course_code, name });
 					}
@@ -164,7 +154,7 @@ export async function POST({ url }) {
 					}
 				}
 
-				if (host && !existing_hosts.find((h) => h.name === host)) {
+				if (host && !existing_hosts.find((h) => h?.name === host)) {
 					hostsMap.set(host, { name: host });
 				}
 
@@ -203,13 +193,13 @@ export async function POST({ url }) {
 
 		events.forEach((event) => {
 			if (event.course) {
-				let xata_course = xata_courses.find((c) => c.code === event.course);
+				let xata_course = xata_courses.find((c) => c?.code === event.course);
 				if (xata_course) {
 					event.course = xata_course.id;
 				}
 			}
 			if (event.host) {
-				let xata_host = xata_hosts.find((h) => h.name === event.host);
+				let xata_host = xata_hosts.find((h) => h?.name === event.host);
 				if (xata_host) {
 					event.host = xata_host.id;
 				}
