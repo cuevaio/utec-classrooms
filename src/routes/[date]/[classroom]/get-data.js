@@ -58,7 +58,6 @@ export async function getData(classroom_name, day_start, day_end) {
 		if (!!e.end && !!e.start) {
 			// @ts-ignore
 			let long = Math.abs(e.end - e.start) / 36e5;
-			console.log(long);
 
 			if (long > 1) {
 				for (let i = 1; i < long; i++) {

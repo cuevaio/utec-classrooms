@@ -57,15 +57,16 @@
 		class="absolute top-0 bottom-0 right-0 left-0 grid gap-2 -z-5"
 	>
 		{#each new Array(15).fill(0) as _, i}
-			<div class="relative group" data-hide={data.hours_to_hide.includes(i + 7)}>
+			<div
+				class="relative data-[hide=true]:opacity-0"
+				data-hide={data.hours_to_hide.includes(i + 7)}
+			>
 				<div
-					class="group-data-[hide=true]:opacity-0 ml-2 absolute -top-3 border h-6 w-16 rounded-full text-gray-700 bg-white flex items-center justify-center text-sm z-10"
+					class="ml-2 absolute -top-3 border h-6 w-16 rounded-full text-gray-700 bg-white flex items-center justify-center text-sm z-10"
 				>
 					{String(i + 7).padStart(2, '0')}:00
 				</div>
-				<div
-					class="group-data-[hide=true]:opacity-0 absolute right-0 left-0 h-px bg-gray-200 z-0"
-				/>
+				<div class="absolute right-0 left-0 h-px bg-gray-200 z-0" />
 			</div>
 		{/each}
 	</div>
