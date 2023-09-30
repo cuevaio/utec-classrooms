@@ -32,7 +32,7 @@ let xata = getXataClient();
  */
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET({ url }) {
+export async function POST({ url }) {
 	try {
 		let classroom_name = url.searchParams.get('classroom_name') ?? 'A101';
 		let utec_token =
@@ -47,19 +47,19 @@ export async function GET({ url }) {
 
 		let today = new Date();
 
-		let yesterday = new Date();
-		yesterday.setDate(yesterday.getDate() - 1);
+		let todayMinus2 = new Date();
+		todayMinus2.setDate(todayMinus2.getDate() - 2);
 
-		let todayPlusAWeek = new Date();
-		todayPlusAWeek.setDate(todayPlusAWeek.getDate() + 7);
+		let todayPlus7 = new Date();
+		todayPlus7.setDate(todayPlus7.getDate() + 7);
 
-		let todayPlusAWeekAndADay = new Date();
-		todayPlusAWeekAndADay.setDate(todayPlusAWeekAndADay.getDate() + 8);
+		let todayPlus9 = new Date();
+		todayPlus9.setDate(todayPlus9.getDate() + 9);
 
 		let queryparams = new URLSearchParams({
 			codaula: String(classroom.code),
 			fechainicial: today.toLocaleDateString('es-PE'),
-			fechafinal: todayPlusAWeek.toLocaleDateString('es-PE')
+			fechafinal: todayPlus7.toLocaleDateString('es-PE')
 		});
 
 		let response = await fetch(
@@ -76,8 +76,20 @@ export async function GET({ url }) {
 		/** @type {RawEvent[]} */
 		const raw_events = data.content;
 
-		let existing_courses = await xata.db.course.getAll();
-		let existing_hosts = await xata.db.host.getAll();
+		let existing_courses_page = await xata.db.course.getPaginated({
+			pagination: {
+				size: 200
+			}
+		});
+		let existing_courses = existing_courses_page.records;
+
+		let existing_hosts_page = await xata.db.host.getPaginated({
+			pagination: {
+				size: 200
+			}
+		});
+		let existing_hosts = existing_hosts_page.records;
+
 		let existing_events_page = await xata.db.event
 			.filter({
 				$all: [
@@ -86,19 +98,19 @@ export async function GET({ url }) {
 					},
 					{
 						start: {
-							$gt: yesterday
+							$gt: todayMinus2
 						}
 					},
 					{
 						end: {
-							$lt: todayPlusAWeekAndADay
+							$lt: todayPlus9
 						}
 					}
 				]
 			})
 			.getPaginated({
 				pagination: {
-					size: 120
+					size: 200
 				}
 			});
 		let existing_events = existing_events_page.records;
@@ -190,9 +202,11 @@ export async function GET({ url }) {
 		let xata_hosts = [...created_hosts, ...existing_hosts];
 
 		events.forEach((event) => {
-			let xata_course = xata_courses.find((c) => c.code === event.course);
-			if (xata_course) {
-				event.course = xata_course.id;
+			if (event.course) {
+				let xata_course = xata_courses.find((c) => c.code === event.course);
+				if (xata_course) {
+					event.course = xata_course.id;
+				}
 			}
 			if (event.host) {
 				let xata_host = xata_hosts.find((h) => h.name === event.host);
