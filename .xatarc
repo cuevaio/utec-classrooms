@@ -1,0 +1,8 @@
+{
+	"databaseURL": "https://utec-classrooms-rmhlob.us-east-1.xata.sh/db/utec-classrooms",
+	"codegen": {
+		"output": "src/lib/xata/index.js",
+		"moduleType": "esm",
+		"declarations": true
+	}
+}
