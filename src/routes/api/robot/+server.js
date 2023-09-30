@@ -1,23 +1,21 @@
 import { classrooms } from '$lib/classrooms';
+import { UTEC_TOKEN } from '$env/static/private';
 
 /** @type {import('./$types').RequestHandler} */
-export async function GET() {
+export async function POST({ url }) {
 	try {
+		let utec_token = url.searchParams.get('utec_token') ?? UTEC_TOKEN;
+
 		await Promise.all(
 			classrooms.map(async (classroom) => {
 				try {
 					let queryparams = new URLSearchParams({
-						classroom_name: classroom.name
+						classroom_name: classroom.name,
+						utec_token
 					});
-					let response = await fetch(
-						`https://utec-classrooms.vercel.app/api/refresh?${queryparams.toString()}`,
-						{
-							method: 'POST'
-						}
-					);
-					let data = await response.json();
-
-					console.log(data);
+					await fetch(`http://localhost:5173/api/refresh?${queryparams.toString()}`, {
+						method: 'POST'
+					});
 				} catch (e) {
 					console.log(e);
 				}
@@ -25,7 +23,7 @@ export async function GET() {
 		);
 		return new Response(
 			JSON.stringify({
-				created: 'hi'
+				created: 'hi mom!'
 			}),
 			{
 				status: 200

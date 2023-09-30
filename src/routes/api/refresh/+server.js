@@ -1,5 +1,6 @@
 import { getXataClient } from '$lib/xata';
 import { parseDatetime } from '$lib/utils/parse-datetime';
+import { UTEC_TOKEN } from '$env/static/private';
 
 let xata = getXataClient();
 
@@ -35,9 +36,7 @@ let xata = getXataClient();
 export async function POST({ url }) {
 	try {
 		let classroom_name = url.searchParams.get('classroom_name') ?? 'A101';
-		let utec_token =
-			url.searchParams.get('utec_token') ??
-			'eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE2OTYwNDM2NDMsInN1YiI6ImFudGhvbnkuY3VldmFAdXRlYy5lZHUucGUiLCJhdWRpZW5jZSI6InVuZGV0ZXJtaW5lZCIsImNyZWF0ZWQiOjE2OTYwMjkyNDMyNjh9.VoPK1YwXxxgnDLcds4cYNntNpNmLg0kW9uPosUFvXaABqSgmLu-QDUOjX_I3xX4dYleN9FScyjuuNMnVKTjz9A';
+		let utec_token = url.searchParams.get('utec_token') ?? UTEC_TOKEN;
 
 		let classroom = await xata.db.classroom.filter({ name: classroom_name }).getFirstOrThrow();
 
@@ -47,8 +46,11 @@ export async function POST({ url }) {
 
 		let today = new Date();
 
-		let todayMinus2 = new Date();
-		todayMinus2.setDate(todayMinus2.getDate() - 2);
+		let todayMinus5 = new Date();
+		todayMinus5.setDate(todayMinus5.getDate() - 2);
+
+		let todayMinus3 = new Date();
+		todayMinus3.setDate(todayMinus3.getDate() - 2);
 
 		let todayPlus7 = new Date();
 		todayPlus7.setDate(todayPlus7.getDate() + 7);
@@ -58,7 +60,7 @@ export async function POST({ url }) {
 
 		let queryparams = new URLSearchParams({
 			codaula: String(classroom.code),
-			fechainicial: today.toLocaleDateString('es-PE'),
+			fechainicial: todayMinus3.toLocaleDateString('es-PE'),
 			fechafinal: todayPlus7.toLocaleDateString('es-PE')
 		});
 
@@ -71,6 +73,11 @@ export async function POST({ url }) {
 				}
 			}
 		);
+
+		if (!response.ok) {
+			throw new Error(`UTEC API returned ${response.status}`);
+		}
+
 		let data = await response.json();
 
 		/** @type {RawEvent[]} */
@@ -85,12 +92,12 @@ export async function POST({ url }) {
 					},
 					{
 						start: {
-							$gt: todayMinus2
+							$ge: todayMinus5
 						}
 					},
 					{
 						end: {
-							$lt: todayPlus9
+							$le: todayPlus9
 						}
 					}
 				]
@@ -100,116 +107,89 @@ export async function POST({ url }) {
 					size: 200
 				}
 			});
+
 		let existing_events = existing_events_page.records;
 
-		let existing_courses = existing_events.map((e) => e.course).filter((c) => c);
-		let existing_hosts = existing_events.map((e) => e.host).filter((h) => h);
+		let events_to_create = await Promise.all(
+			raw_events.map(async ({ title, start, end }) => {
+				let event_start = parseDatetime(start);
+				let event_end = parseDatetime(end);
+				let classroom_id = classroom.id;
 
-		/** @type {Map<string, Course>} */
-		const coursesMap = new Map();
+				let existing_event = existing_events.find(
+					(e) =>
+						e.start?.toISOString() === event_start.toISOString() &&
+						e.end?.toISOString() === event_end.toISOString()
+				);
 
-		/** @type {Map<string, Host>} */
-		const hostsMap = new Map();
-
-		/** @type {Event[]} */
-		const events = [];
-
-		raw_events.forEach(({ title, start, end }) => {
-			let event_start = parseDatetime(start);
-			let event_end = parseDatetime(end);
-			let classroom_id = classroom.id;
-
-			/** @type {string | undefined} */
-			let event_host = undefined;
-
-			/** @type {string | undefined} */
-			let event_course = undefined;
-
-			/** @type {string | undefined} */
-			let event_name = undefined;
-
-			if (title.includes('-') || title.includes(':')) {
-				/** @type {string | undefined} */
-				let host = undefined;
-
-				/** @type {string | undefined} */
-				let course = undefined;
-
-				if (title.includes('Docente\t')) {
-					host = title.split('Docente\t')[1];
-					let parts = title.split('-');
-					let course_code = parts[0];
-					if (!existing_courses.find((c) => c?.code === course_code)) {
-						let name = parts[1].trim();
-						coursesMap.set(course_code, { code: course_code, name });
-					}
-					course = course_code;
-				} else if (title.startsWith(':')) {
-					let parts = title.split('-');
-					if (parts.length > 1) {
-						host = parts[parts.length - 1].trim();
-						event_name = parts.slice(0, -1).join(' ').replace(':', '').trim();
-					} else {
-						event_name = title.replace(':', '').trim();
-					}
+				if (existing_event) {
+					return null;
 				}
 
-				if (host && !existing_hosts.find((h) => h?.name === host)) {
-					hostsMap.set(host, { name: host });
+				/** @type {string | undefined} */
+				let event_host = undefined;
+
+				/** @type {string | undefined} */
+				let event_course = undefined;
+
+				/** @type {string | undefined} */
+				let event_name = undefined;
+
+				if (title.includes('-') || title.includes(':')) {
+					/** @type {string | undefined} */
+					let host_name = undefined;
+
+					/** @type {string | undefined} */
+					let course_name = undefined;
+
+					/** @type {string | undefined} */
+					let course_code = undefined;
+
+					if (title.includes('Docente\t')) {
+						host_name = title.split('Docente\t')[1];
+
+						let parts = title.split('-');
+
+						course_code = parts[0].trim();
+						course_name = parts[1].trim();
+					} else if (title.startsWith(':')) {
+						let parts = title.split('-');
+						if (parts.length > 1) {
+							host_name = parts[parts.length - 1].trim();
+							event_name = parts.slice(0, -1).join(' ').replace(':', '').trim();
+						} else {
+							event_name = title.replace(':', '').trim();
+						}
+					}
+
+					if (host_name) {
+						event_host = await getHostID(host_name);
+					}
+
+					if (course_name && course_code) {
+						event_course = await getCourseID(course_code, course_name);
+					}
+				} else {
+					event_name = title;
 				}
 
-				event_host = host;
-				event_course = course;
-			} else {
-				event_name = title;
-			}
-
-			let existing_event = existing_events.find(
-				(e) =>
-					e.start?.toISOString() === event_start.toISOString() &&
-					e.end?.toISOString() === event_end.toISOString()
-			);
-
-			if (!existing_event) {
-				events.push({
+				return {
 					start: event_start,
 					end: event_end,
 					classroom: classroom_id,
 					name: event_name,
 					course: event_course,
 					host: event_host
-				});
-			}
-		});
+				};
+			})
+		);
 
-		let courses = [...coursesMap.values()];
-		let hosts = [...hostsMap.values()];
-
-		let created_courses = await xata.db.course.create(courses);
-		let created_hosts = await xata.db.host.create(hosts);
-
-		let xata_courses = [...created_courses, ...existing_courses];
-		let xata_hosts = [...created_hosts, ...existing_hosts];
-
-		events.forEach((event) => {
-			if (event.course) {
-				let xata_course = xata_courses.find((c) => c?.code === event.course);
-				if (xata_course) {
-					event.course = xata_course.id;
-				}
-			}
-			if (event.host) {
-				let xata_host = xata_hosts.find((h) => h?.name === event.host);
-				if (xata_host) {
-					event.host = xata_host.id;
-				}
-			}
-		});
-
-		let created_events = await xata.db.event.create(events);
+		// @ts-ignore
+		let created_events = await xata.db.event.create(events_to_create.filter((e) => e !== null));
 
 		return new Response(
 			JSON.stringify({
+				// @ts-ignore
 				created: created_events.length
 			}),
 			{
@@ -219,5 +199,46 @@ export async function POST({ url }) {
 	} catch (e) {
 		console.log(e);
 		return new Response(JSON.stringify(e));
+	}
+}
+
+/**
+ * @param {string} name
+ */
+
+async function getHostID(name) {
+	let existing_host = await xata.db.host.filter({ name }).getFirst();
+	if (existing_host) {
+		return existing_host.id;
+	} else {
+		try {
+			let created_host = await xata.db.host.create({
+				name
+			});
+			return created_host.id;
+		} catch (e) {
+			return getHostID(name);
+		}
+	}
+}
+
+/**
+ * @param {string} code
+ * @param {string} name
+ */
+async function getCourseID(code, name) {
+	let existing_course = await xata.db.course.filter({ code }).getFirst();
+	if (existing_course) {
+		return existing_course.id;
+	} else {
+		try {
+			let created_course = await xata.db.course.create({
+				code,
+				name
+			});
+			return created_course.id;
+		} catch (e) {
+			return getCourseID(code, name);
+		}
 	}
 }
