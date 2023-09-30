@@ -22,12 +22,12 @@
 	<meta name="description" content={`Aulas libres en UTEC hoy.`} />
 </svelte:head>
 
-<div class="flex flex-wrap justify-between items-center sm:h-32 mb-4">
-	<h1 class="text-2xl font-bold">Salones libres en UTEC</h1>
+<div class="flex flex-wrap justify-between items-center sm:h-24 mb-4">
+	<h2 class="text-lg">Salones libres en UTEC</h2>
 	<a class="" href="https://x.com/cuevantn">by cuevantn</a>
 </div>
 
-<h2 class="text-center text-lg">Hoy, {data.today}</h2>
+<h1 class="text-2xl font-bold text-center">Hoy</h1>
 
 <div class="grid grid-cols-1 gap-6 my-8">
 	{#each data.free as { classrooms, start }}

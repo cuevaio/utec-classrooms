@@ -51,11 +51,31 @@ export async function getData(classroom_name, day_start, day_end) {
 	let yesterday = new Date(day_start);
 	yesterday.setDate(yesterday.getDate() - 1);
 
+	/** @type {number[]}*/
+	let hours_to_hide = [];
+
+	events.records.forEach((e) => {
+		if (!!e.end && !!e.start) {
+			// @ts-ignore
+			let long = Math.abs(e.end - e.start) / 36e5;
+			console.log(long);
+
+			if (long > 1) {
+				for (let i = 1; i < long; i++) {
+					hours_to_hide.push(
+						Number(new Date(e.start.getTime() + i * 36e5).toLocaleTimeString('es-PE').split(':')[0])
+					);
+				}
+			}
+		}
+	});
+
 	return {
 		events: events.records,
 		classroom,
-    today: day_start.toISOString().split('T')[0],
+		today: day_start.toISOString().split('T')[0],
 		tomorrow: day_end.toISOString().split('T')[0],
-		yesterday: yesterday.toISOString().split('T')[0]
+		yesterday: yesterday.toISOString().split('T')[0],
+		hours_to_hide
 	};
 }

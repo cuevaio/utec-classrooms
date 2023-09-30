@@ -13,12 +13,12 @@
 	/>
 </svelte:head>
 
-<div class="flex flex-wrap justify-between items-center sm:h-32 mb-4">
-	<h1 class="text-2xl font-bold">{data.classroom?.name}</h1>
-	<a class="" href={`/${data.today}`}>{data.today}</a>
+<div class="flex flex-wrap justify-between items-center sm:h-24 mb-4">
+	<a href={`/${data.today}`} class="text-lg">{data.today}</a>
+	<a class="" href="https://x.com/cuevantn">by cuevantn</a>
 </div>
 
-<h2 class="text-xl">Horario</h2>
+<h1 class="text-2xl font-bold text-center">{data.classroom?.name}</h1>
 
 <div
 	style="grid-template-rows: repeat(15, minmax(0, 1fr));"
@@ -57,14 +57,15 @@
 		class="absolute top-0 bottom-0 right-0 left-0 grid gap-2 -z-5"
 	>
 		{#each new Array(15).fill(0) as _, i}
-			<div class="relative">
+			<div class="relative group" data-hide={data.hours_to_hide.includes(i + 7)}>
 				<div
-					class=" ml-2 absolute -top-3 border h-6 w-16 rounded-full text-gray-700 bg-white flex items-center justify-center text-sm z-10"
+					class="group-data-[hide=true]:opacity-0 ml-2 absolute -top-3 border h-6 w-16 rounded-full text-gray-700 bg-white flex items-center justify-center text-sm z-10"
 				>
-					{i + 7}:00
+					{String(i + 7).padStart(2, '0')}:00
 				</div>
-				<div class="absolute right-0 left-0 h-px bg-gray-200 z-0" />
-				<div class="absolute right-0 left-0 -bottom-[9px] h-px bg-gray-200 z-0" />
+				<div
+					class="group-data-[hide=true]:opacity-0 absolute right-0 left-0 h-px bg-gray-200 z-0"
+				/>
 			</div>
 		{/each}
 	</div>
