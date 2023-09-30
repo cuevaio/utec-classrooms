@@ -34,7 +34,7 @@
 		<div
 			class="hour-container flex flex-wrap gap-2 col-span-3 border-t pt-4 relative pb-6 -mb-6 px-2"
 		>
-			<div class="absolute -top-3 bg-white text-zinc-700 rounded-full border text-sm h-6 w-16">
+			<div class="absolute -top-3 bg-white text-gray-700 rounded-full border text-sm h-6 w-16">
 				<div class="w-full h-full flex items-center justify-center">
 					{start.toLocaleTimeString('es-PE', {
 						hour: '2-digit',

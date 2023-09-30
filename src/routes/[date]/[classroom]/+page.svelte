@@ -18,22 +18,65 @@
 	<a class="" href={`/${data.today}`}>{data.today}</a>
 </div>
 
-<ul>
+<h2 class="text-xl">Horario</h2>
+
+<div
+	style="grid-template-rows: repeat(15, minmax(0, 1fr));"
+	class="relative grid grow gap-2 min-h-[800px] my-8"
+>
 	{#each data.events as event}
-		<li>
-			{event.name || event.course?.name} || {event.start?.toLocaleTimeString()} ||
-			{event.end?.toLocaleTimeString()}
-		</li>
+		{@const start =
+			Number(
+				event.start
+					?.toLocaleTimeString('es-PE', {
+						hour: '2-digit',
+						minute: '2-digit'
+					})
+					.split(':')[0]
+			) - 6}
+		{@const end =
+			Number(
+				event.end
+					?.toLocaleTimeString('es-PE', {
+						hour: '2-digit',
+						minute: '2-digit'
+					})
+					.split(':')[0]
+			) - 6}
+		<div
+			style={`grid-row-start: ${start}; grid-row-end: ${end};`}
+			class="rounded-lg flex bg-gray-200 items-center justify-center mx-2 mt-1.5"
+		>
+			<p style="text-wrap: balance;" class="z-5 w-2/3 text-center">
+				{event.name || event.course?.name}
+			</p>
+		</div>
 	{/each}
-</ul>
+	<div
+		style="grid-template-rows: repeat(15, minmax(0, 1fr));"
+		class="absolute top-0 bottom-0 right-0 left-0 grid gap-2 -z-5"
+	>
+		{#each new Array(15).fill(0) as _, i}
+			<div class="relative">
+				<div
+					class=" ml-2 absolute -top-3 border h-6 w-16 rounded-full text-gray-700 bg-white flex items-center justify-center text-sm z-10"
+				>
+					{i + 7}:00
+				</div>
+				<div class="absolute right-0 left-0 h-px bg-gray-200 z-0" />
+				<div class="absolute right-0 left-0 -bottom-[9px] h-px bg-gray-200 z-0" />
+			</div>
+		{/each}
+	</div>
+</div>
 
 <div class="flex h-24 items-center space-x-4">
-  <button
-    class="border w-32 h-8 rounded-lg"
-    on:click={() => goto(`/${data.yesterday}/${data.classroom?.name}`)}>-1 día</button
-  >
-  <button
-    class="border w-32 h-8 rounded-lg"
-    on:click={() => goto(`/${data.tomorrow}/${data.classroom?.name}`)}>+1 día</button
-  >
+	<button
+		class="border w-32 h-8 rounded-lg"
+		on:click={() => goto(`/${data.yesterday}/${data.classroom?.name}`)}>-1 día</button
+	>
+	<button
+		class="border w-32 h-8 rounded-lg"
+		on:click={() => goto(`/${data.tomorrow}/${data.classroom?.name}`)}>+1 día</button
+	>
 </div>
