@@ -21,7 +21,7 @@ export function entries() {
 	let classroom_date_combinations = [];
 
 	for (let classroom of classrooms) {
-		let dates = new Array(20).fill(0).map((_, i) => {
+		let dates = new Array(12).fill(0).map((_, i) => {
 			let date = new Date(start_date);
 			date.setDate(date.getDate() + i);
 			return {
