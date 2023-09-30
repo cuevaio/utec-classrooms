@@ -59,7 +59,7 @@
 		{#each new Array(15).fill(0) as _, i}
 			<div
 				class="relative data-[hide=true]:opacity-0"
-				data-hide={data.hours_to_hide.includes(i + 7)}
+				data-hide={data.hours_to_hide.includes(i - 5)}
 			>
 				<div
 					class="ml-2 absolute -top-3 border h-6 w-16 rounded-full text-gray-700 bg-white flex items-center justify-center text-sm z-10"
