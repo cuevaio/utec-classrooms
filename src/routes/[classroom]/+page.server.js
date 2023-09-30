@@ -1,66 +1,26 @@
-import { getXataClient } from '$lib/xata';
-import { error } from '@sveltejs/kit';
-let xata = getXataClient();
+import { getData } from './get-data';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
-	let classroom_name = params.classroom;
-	let now_datetime_string = '2023-09-28T20:39:13.156Z';
+	let options = { timeZone: 'America/Lima' };
 
-	let today_5am = new Date(now_datetime_string);
-	today_5am.setHours(10, 0, 0, 0);
+	let now = new Date();
+	let limaDateTime = now.toLocaleDateString('en-US', options);
 
-	let tomorrow_5am = new Date(now_datetime_string);
-	tomorrow_5am.setDate(tomorrow_5am.getDate() + 1);
-	tomorrow_5am.setHours(10, 0, 0, 0);
+	let [today_month, today_day, today_year] = limaDateTime.split('/');
+	today_month = today_month.padStart(2, '0');
+	today_day = today_day.padStart(2, '0');
 
-	console.log('today_5am', today_5am);
-	console.log('tomorrow_5am', tomorrow_5am);
+	let tomorrow = new Date();
+	tomorrow.setDate(tomorrow.getDate() + 1);
+	let [tomorrow_month, tomorrow_day, tomorrow_year] = tomorrow
+		.toLocaleDateString('en-US', options)
+		.split('/');
+	tomorrow_month = tomorrow_month.padStart(2, '0');
+	tomorrow_day = tomorrow_day.padStart(2, '0');
 
-	let classroom = await xata.db.classroom
-		.filter({
-			name: classroom_name
-		})
-		.getFirst();
+	let today_iso = new Date(`${today_year}-${today_month}-${today_day}T11:00:00.000Z`);
+	let tomorrow_iso = new Date(`${tomorrow_year}-${tomorrow_month}-${tomorrow_day}T11:00:00.000Z`);
 
-	if (!classroom) {
-		error(404, 'Classroom not found');
-	}
-
-	let events = await xata.db.event
-		.select(['*', 'classroom.*', 'course.*', 'host.*'])
-		.filter({
-			$all: [
-				{
-					start: {
-						$ge: today_5am
-					}
-				},
-				{
-					start: {
-						$lt: tomorrow_5am
-					}
-				},
-				{
-					classroom: {
-						name: classroom_name
-					}
-				}
-			]
-		})
-		.getPaginated();
-
-	// sort events by start time
-
-	events.records.sort((a, b) => {
-		if (!!a.start && !!b.start) {
-			return a.start.getTime() - b.start.getTime();
-		}
-		return 0;
-	});
-
-	return {
-		events: events.records,
-		classroom
-	};
+	return getData(params.classroom, today_iso, tomorrow_iso);
 }

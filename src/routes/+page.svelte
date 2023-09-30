@@ -1,5 +1,5 @@
 <script>
-	/** @type {import('./$types').PageData} */
+	/** @type {import('./$types').PageServerData} */
 	export let data;
 </script>
 
