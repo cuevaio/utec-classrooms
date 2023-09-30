@@ -1,4 +1,4 @@
-import { getData } from '../get-data';
+import { getData } from './get-data';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
