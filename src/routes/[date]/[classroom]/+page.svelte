@@ -8,7 +8,7 @@
 	let hours_to_hide = [];
 
 	$: {
-    hours_to_hide = [];
+		hours_to_hide = [];
 		data.events.forEach((e) => {
 			if (!!e.end && !!e.start) {
 				// @ts-ignore
@@ -43,7 +43,14 @@
 </svelte:head>
 
 <div class="flex flex-wrap justify-between items-center sm:h-24 mb-4">
-	<a href={`/${data.today}`} class="text-lg">{data.today}</a>
+	<a href={`/${data.today}`} class="text-lg"
+		>{new Date(`${data.today}T14:00:00.000Z`)
+			.toLocaleDateString('es-PE', {
+				weekday: 'long'
+			})
+			.toLocaleUpperCase()}
+		{data.today}</a
+	>
 	<a class="" href="https://x.com/cuevantn">by cuevantn</a>
 </div>
 

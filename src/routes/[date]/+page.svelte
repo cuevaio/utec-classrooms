@@ -27,7 +27,14 @@
 	<a class="" href="https://x.com/cuevantn">by cuevantn</a>
 </div>
 
-<h1 class="text-2xl font-bold text-center">{data.today}</h1>
+<h1 class="text-2xl font-bold text-center">
+	{new Date(`${data.today}T14:00:00.000Z`)
+		.toLocaleDateString('es-PE', {
+			weekday: 'long'
+		})
+		.toLocaleUpperCase()}
+	{data.today}
+</h1>
 
 <div class="grid grid-cols-1 gap-6 my-8">
 	{#each data.free as { classrooms, start }}
