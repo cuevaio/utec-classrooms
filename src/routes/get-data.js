@@ -118,5 +118,16 @@ export async function getData(day_start) {
 		})
 	);
 
-	return free;
+	let yesterday = new Date(day_start);
+	yesterday.setDate(yesterday.getDate() - 1);
+
+	let tomorrow = new Date(day_start);
+	tomorrow.setDate(tomorrow.getDate() + 1);
+
+	return {
+		free,
+		yesterday: yesterday.toISOString().split('T')[0],
+		today: day_start.toISOString().split('T')[0],
+		tomorrow: tomorrow.toISOString().split('T')[0]
+	};
 }

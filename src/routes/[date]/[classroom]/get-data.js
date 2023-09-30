@@ -35,9 +35,7 @@ export async function getData(classroom_name, day_start, day_end) {
 					}
 				},
 				{
-					classroom: {
-						name: classroom_name
-					}
+					classroom: classroom?.id ?? ''
 				}
 			]
 		})
@@ -56,6 +54,7 @@ export async function getData(classroom_name, day_start, day_end) {
 	return {
 		events: events.records,
 		classroom,
+    today: day_start.toISOString().split('T')[0],
 		tomorrow: day_end.toISOString().split('T')[0],
 		yesterday: yesterday.toISOString().split('T')[0]
 	};

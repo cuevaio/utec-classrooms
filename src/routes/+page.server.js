@@ -13,9 +13,5 @@ export async function load() {
 
 	let day_start = new Date(`${today_year}-${today_month}-${today_day}T14:00:00.000Z`);
 
-	let free = await getData(day_start);
-
-	return {
-		free
-	};
+	return getData(day_start);
 }
