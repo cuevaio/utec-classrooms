@@ -1,5 +1,10 @@
 export const classrooms = [
 	{
+		code: 1623,
+		name: 'Auditorio',
+		max: 300
+	},
+	{
 		code: 2668,
 		name: 'A101',
 		max: 40
