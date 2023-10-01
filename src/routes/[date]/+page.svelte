@@ -23,7 +23,7 @@
 </svelte:head>
 
 <div class="flex flex-wrap justify-between items-center sm:h-24 mb-4">
-	<h2 class="text-lg">Salones libres en UTEC</h2>
+	<a class="text-lg" href="/">Salones libres en UTEC</a>
 	<a class="" href="https://x.com/cuevantn">by cuevantn</a>
 </div>
 

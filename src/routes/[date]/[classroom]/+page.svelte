@@ -30,8 +30,6 @@
 			}
 		});
 	}
-
-	$: console.log(hours_to_hide);
 </script>
 
 <svelte:head>
