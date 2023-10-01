@@ -1,8 +1,7 @@
 import { classrooms } from '$lib/classrooms';
 import { UTEC_TOKEN } from '$env/static/private';
 
-// @ts-ignore
-import { VERCEL } from '$env/static/private';
+import { dev } from '$app/environment';
 
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ url }) {
@@ -18,7 +17,7 @@ export async function POST({ url }) {
 					});
 
 					let base_url = 'http://localhost:5173';
-					if (VERCEL == 1) {
+					if (!dev) {
 						base_url = `https://utec-classrooms.vercel.app`;
 					}
 

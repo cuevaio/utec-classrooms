@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@vercel/analytics':
+    specifier: ^1.0.2
+    version: 1.0.2
   '@xata.io/client':
     specifier: ^0.26.6
     version: 0.26.6(typescript@5.2.2)
@@ -467,6 +470,10 @@ packages:
   /@types/pug@2.0.7:
     resolution: {integrity: sha512-I469DU0UXNC1aHepwirWhu9YKg5fkxohZD95Ey/5A7lovC+Siu+MCLffva87lnfThaOrw9Vb1DUN5t55oULAAw==}
     dev: true
+
+  /@vercel/analytics@1.0.2:
+    resolution: {integrity: sha512-BZFxVrv24VbNNl5xMxqUojQIegEeXMI6rX3rg1uVLYUEXsuKNBSAEQf4BWEcjQDp/8aYJOj6m8V4PUA3x/cxgg==}
+    dev: false
 
   /@xata.io/client@0.26.6(typescript@5.2.2):
     resolution: {integrity: sha512-6YMAOSTGGO4Mwh/J8357l0jSssp3SXwyEPJu1gMr051GB/oV/l2/RAwLNwKyIhHivfvCfAmvUWXNt2j1PthglA==}
