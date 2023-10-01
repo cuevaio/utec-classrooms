@@ -1,6 +1,9 @@
 import { classrooms } from '$lib/classrooms';
 import { UTEC_TOKEN } from '$env/static/private';
 
+// @ts-ignore
+import { VERCEL } from '$env/static/private';
+
 /** @type {import('./$types').RequestHandler} */
 export async function POST({ url }) {
 	try {
@@ -13,7 +16,13 @@ export async function POST({ url }) {
 						classroom_name: classroom.name,
 						utec_token
 					});
-					await fetch(`http://localhost:5173/api/refresh?${queryparams.toString()}`, {
+
+					let base_url = 'http://localhost:5173';
+					if (VERCEL == 1) {
+						base_url = `https://utec-classrooms.vercel.app`;
+					}
+
+					await fetch(`${base_url}/api/refresh?${queryparams.toString()}`, {
 						method: 'POST'
 					});
 				} catch (e) {
