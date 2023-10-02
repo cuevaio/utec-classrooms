@@ -1,7 +1,9 @@
 .DS_Store
 node_modules
 /build
-/.svelte-kit
+/.svelte-kit/generated
+/.svelte-kit/types
+/.svelte-kit/ambient.d.ts
 /package
 .env
 .env.*
