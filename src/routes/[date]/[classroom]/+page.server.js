@@ -19,7 +19,7 @@ export function entries() {
 	let classroom_date_combinations = [];
 
 	for (let classroom of classrooms) {
-		new Array(4).fill(0).map((_, i) => {
+		new Array(7).fill(0).map((_, i) => {
 			let tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + i);
 

@@ -16,7 +16,7 @@ export function entries() {
 		}
 	];
 
-	new Array(10).fill(0).forEach((_, i) => {
+	new Array(7).fill(0).forEach((_, i) => {
 		let tomorrow = new Date();
 		tomorrow.setDate(tomorrow.getDate() + i);
 
