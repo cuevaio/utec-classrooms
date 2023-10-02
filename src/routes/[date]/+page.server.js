@@ -17,21 +17,15 @@ export function entries() {
 	];
 
 	new Array(10).fill(0).forEach((_, i) => {
-		let yesterday = new Date();
-		yesterday.setDate(yesterday.getDate() - i);
-
 		let tomorrow = new Date();
 		tomorrow.setDate(tomorrow.getDate() + i);
-
-		dates.push({
-			date: yesterday.toISOString().split('T')[0]
-		});
 
 		dates.push({
 			date: tomorrow.toISOString().split('T')[0]
 		});
 	});
 
+	console.log(dates);
 	return dates;
 }
 

@@ -19,17 +19,10 @@ export function entries() {
 	let classroom_date_combinations = [];
 
 	for (let classroom of classrooms) {
-		new Array(5).fill(0).map((_, i) => {
-			let yesterday = new Date();
-			yesterday.setDate(yesterday.getDate() - i);
-
+		new Array(4).fill(0).map((_, i) => {
 			let tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + i);
 
-			classroom_date_combinations.push({
-				date: yesterday.toISOString().split('T')[0],
-				classroom: classroom.name
-			});
 			classroom_date_combinations.push({
 				date: tomorrow.toISOString().split('T')[0],
 				classroom: classroom.name
