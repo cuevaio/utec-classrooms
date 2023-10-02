@@ -27,12 +27,10 @@
 	<a class="" href="https://x.com/cuevantn">by cuevantn</a>
 </div>
 
-<h1 class="text-2xl font-bold text-center">
-	{new Date(`${data.today}T14:00:00.000Z`)
-		.toLocaleDateString('es-PE', {
-			weekday: 'long'
-		})
-		.toLocaleUpperCase()}
+<h1 class="text-2xl font-bold text-center capitalize">
+	{new Date(`${data.today}T14:00:00.000Z`).toLocaleDateString('es-PE', {
+		weekday: 'long'
+	})}
 	{data.today}
 </h1>
 
