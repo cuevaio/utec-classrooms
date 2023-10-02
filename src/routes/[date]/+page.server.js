@@ -11,7 +11,7 @@ export async function load({ params }) {
 export function entries() {
 	let start_date = new Date('2023-10-01');
 
-	let dates = new Array(10).fill(0).map((_, i) => {
+	let dates = new Array(15).fill(0).map((_, i) => {
 		let date = new Date(start_date);
 		date.setDate(date.getDate() + i);
 		return {

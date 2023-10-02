@@ -24,7 +24,7 @@
 	$: diffDaysPrev = Math.ceil(diffTimePrev / (1000 * 60 * 60 * 24));
 </script>
 
-{#if diffDaysPrev < 10}
+{#if diffDaysPrev < 15}
 	<a
 		class="border w-32 h-8 rounded-lg flex items-center justify-center"
 		href={`/${yesterday}/${classroom || ''}`}>{actual_today === today ? 'ayer' : '-1 día'}</a
@@ -33,7 +33,7 @@
 	<div class="w-32 h-8" />
 {/if}
 
-{#if diffDaysNext < 10}
+{#if diffDaysNext < 15}
 	<a
 		class="border w-32 h-8 rounded-lg flex items-center justify-center"
 		href={`/${tomorrow}/${classroom || ''}`}>{actual_today === today ? 'mañana' : '+1 día'}</a
