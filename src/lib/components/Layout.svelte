@@ -14,4 +14,8 @@
 			<slot name="footer" />
 		</nav>
 	</div>
+	<div class="my-12 flex items-start flex-col justify-center gap-2">
+		<a href="https://www.cuevantn.com/">Creado por Anthony Cueva</a>
+		<a href="https://github.com/cuevantn/utec-classrooms/">GitHub</a>
+	</div>
 </div>

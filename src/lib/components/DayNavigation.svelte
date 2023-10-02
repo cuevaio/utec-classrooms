@@ -22,5 +22,5 @@
 >
 <a
 	class="border w-32 h-8 rounded-lg flex items-center justify-center"
-	href={`/${tomorrow}/${classroom || ''}`}>{actual_today === today ? 'mañana' : '-1 día'}</a
+	href={`/${tomorrow}/${classroom || ''}`}>{actual_today === today ? 'mañana' : '+1 día'}</a
 >

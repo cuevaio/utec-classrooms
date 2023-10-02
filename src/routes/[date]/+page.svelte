@@ -27,7 +27,6 @@
 	<Layout>
 		<svelte:fragment slot="navbar">
 			<a href="/">Salones libres en UTEC</a>
-			<a class="" href="https://x.com/cuevantn">by cuevantn</a>
 		</svelte:fragment>
 
 		<h1 class="text-2xl font-bold text-center capitalize">

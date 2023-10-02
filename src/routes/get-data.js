@@ -126,6 +126,8 @@ export async function getData(day_start) {
 		let tomorrow = new Date(day_start);
 		tomorrow.setDate(tomorrow.getDate() + 1);
 
+		console.log(`finished getting data for /${day_start.toISOString().split('T')[0]}`);
+
 		return {
 			free,
 			yesterday: yesterday.toISOString().split('T')[0],
@@ -133,6 +135,7 @@ export async function getData(day_start) {
 			tomorrow: tomorrow.toISOString().split('T')[0]
 		};
 	} catch (e) {
+		console.error(`error while getting data for /${day_start.toISOString().split('T')[0]}`);
 		console.error(e);
 		error(500, 'Internal server error');
 

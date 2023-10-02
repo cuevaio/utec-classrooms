@@ -52,6 +52,7 @@ export async function getData(classroom_name, day_start, day_end) {
 		let yesterday = new Date(day_start);
 		yesterday.setDate(yesterday.getDate() - 1);
 
+    console.log(`finished getting data for /${day_start.toISOString().split('T')[0]}/${classroom_name}`)
 		return {
 			events: events.records,
 			classroom,
@@ -60,6 +61,7 @@ export async function getData(classroom_name, day_start, day_end) {
 			yesterday: yesterday.toISOString().split('T')[0]
 		};
 	} catch (err) {
+    console.log(`error while getting data for /${day_start.toISOString().split('T')[0]}/${classroom_name}`)
 		console.error(err);
 		error(500, 'Internal Server Error');
 		return {
