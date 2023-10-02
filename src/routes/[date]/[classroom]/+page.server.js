@@ -39,7 +39,7 @@ export function entries() {
 	return classroom_date_combinations;
 }
 
-export const prerender = false;
+export const prerender = 'auto';
 
 import { BYPASS_TOKEN } from '$env/static/private';
 
