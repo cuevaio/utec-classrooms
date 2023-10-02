@@ -19,12 +19,13 @@ export function entries() {
 	let classroom_date_combinations = [];
 
 	for (let classroom of classrooms) {
-		new Array(7).fill(0).map((_, i) => {
+		new Array(5).fill(0).map((_, i) => {
 			let yesterday = new Date();
 			yesterday.setDate(yesterday.getDate() - i);
 
 			let tomorrow = new Date();
 			tomorrow.setDate(tomorrow.getDate() + i);
+
 			classroom_date_combinations.push({
 				date: yesterday.toISOString().split('T')[0],
 				classroom: classroom.name
