@@ -16,7 +16,7 @@ export async function load() {
 	return getData(day_start);
 }
 
-export const prerender = 'auto';
+export const prerender = false;
 
 import { BYPASS_TOKEN } from '$env/static/private';
 
