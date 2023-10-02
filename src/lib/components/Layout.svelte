@@ -10,7 +10,7 @@
 	<slot />
 
 	<div class="sticky bottom-0 z-[9999] bg-white">
-		<nav class="h-20 flex justify-between items-center">
+		<nav class="h-20 flex justify-between items-center" data-sveltekit-preload-data="false">
 			<slot name="footer" />
 		</nav>
 	</div>
