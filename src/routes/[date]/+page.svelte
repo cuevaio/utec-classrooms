@@ -23,50 +23,52 @@
 	<meta name="description" content={`Aulas libres en UTEC el ${data.today}.`} />
 </svelte:head>
 
-<Layout>
-	<svelte:fragment slot="navbar">
-		<a href="/">Salones libres en UTEC</a>
-		<a class="" href="https://x.com/cuevantn">by cuevantn</a>
-	</svelte:fragment>
+{#if !data.error}
+	<Layout>
+		<svelte:fragment slot="navbar">
+			<a href="/">Salones libres en UTEC</a>
+			<a class="" href="https://x.com/cuevantn">by cuevantn</a>
+		</svelte:fragment>
 
-	<h1 class="text-2xl font-bold text-center capitalize">
-		{new Date(`${data.today}T14:00:00.000Z`).toLocaleDateString('es-PE', {
-			weekday: 'long'
-		})}
-		{data.today}
-	</h1>
+		<h1 class="text-2xl font-bold text-center capitalize">
+			{new Date(`${data.today}T14:00:00.000Z`).toLocaleDateString('es-PE', {
+				weekday: 'long'
+			})}
+			{data.today}
+		</h1>
 
-	<div class="grid grid-cols-1 gap-6 my-8">
-		{#each data.free as { classrooms, start }}
-			<div
-				class="hour-container flex flex-wrap gap-2 col-span-3 border-t pt-4 relative pb-6 -mb-6 px-2"
-			>
-				<div class="absolute -top-3 bg-white text-gray-700 rounded-full border text-sm h-6 w-16">
-					<div class="w-full h-full flex items-center justify-center">
-						{start.toLocaleTimeString('es-PE', {
-							hour: '2-digit',
-							minute: '2-digit'
-						})}
+		<div class="grid grid-cols-1 gap-6 my-8">
+			{#each data.free as { classrooms, start }}
+				<div
+					class="hour-container flex flex-wrap gap-2 col-span-3 border-t pt-4 relative pb-6 -mb-6 px-2"
+				>
+					<div class="absolute -top-3 bg-white text-gray-700 rounded-full border text-sm h-6 w-16">
+						<div class="w-full h-full flex items-center justify-center">
+							{start.toLocaleTimeString('es-PE', {
+								hour: '2-digit',
+								minute: '2-digit'
+							})}
+						</div>
 					</div>
+
+					{#each classrooms as c}
+						<button
+							on:click={() => clickHandler(c)}
+							data-active={$selected_classroom === c}
+							class="classroom-button rounded-lg border bg-gray-200 px-2 h-8 flex items-center justify-center"
+						>
+							{c}
+						</button>
+					{/each}
 				</div>
+			{/each}
+		</div>
 
-				{#each classrooms as c}
-					<button
-						on:click={() => clickHandler(c)}
-						data-active={$selected_classroom === c}
-						class="classroom-button rounded-lg border bg-gray-200 px-2 h-8 flex items-center justify-center"
-					>
-						{c}
-					</button>
-				{/each}
-			</div>
-		{/each}
-	</div>
-
-	<svelte:fragment slot="footer">
-		<DayNavigation yesterday={data.yesterday} today={data.today} tomorrow={data.tomorrow} />
-	</svelte:fragment>
-</Layout>
+		<svelte:fragment slot="footer">
+			<DayNavigation yesterday={data.yesterday} today={data.today} tomorrow={data.tomorrow} />
+		</svelte:fragment>
+	</Layout>
+{/if}
 
 <style lang="postcss">
 	.hour-container:has(> [data-active='true']) {
