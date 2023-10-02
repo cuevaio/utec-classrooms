@@ -30,13 +30,16 @@ export function entries() {
 			};
 		});
 
+		console.log(dates);
 		classroom_date_combinations = classroom_date_combinations.concat(dates);
 	}
+
+	console.log(classroom_date_combinations);
 
 	return classroom_date_combinations;
 }
 
-export const prerender = "auto"
+export const prerender = false;
 
 import { BYPASS_TOKEN } from '$env/static/private';
 
