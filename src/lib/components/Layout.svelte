@@ -26,6 +26,7 @@
 		>
 			<img src="/yape-qr.png" alt="QR de Yape" class="w-72 h-72 object-cover" />
 		</div>
+		<p>Yape / Plin</p>
 	</div>
 
 	<div class="my-12 flex flex-col space-y-1 text-center">
