@@ -34,7 +34,7 @@
 </script>
 
 <svelte:head>
-	<title>{data.classroom?.name} | {data.today}</title>
+	<title>UTEC Classrooms | {data.classroom?.name} | {data.today}</title>
 	<meta
 		name="description"
 		content={`El horario del aula ${data.classroom?.name} el ${data.today}.`}

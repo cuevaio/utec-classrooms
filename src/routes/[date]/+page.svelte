@@ -19,14 +19,14 @@
 </script>
 
 <svelte:head>
-	<title>Aulas libres en UTEC | {data.today}</title>
+	<title>UTEC Classrooms | {data.today}</title>
 	<meta name="description" content={`Aulas libres en UTEC el ${data.today}.`} />
 </svelte:head>
 
 {#if !data.error}
 	<Layout>
 		<svelte:fragment slot="navbar">
-			<a href="/">Salones libres en UTEC</a>
+			<a href="/">UTEC Classrooms</a>
 		</svelte:fragment>
 
 		<h1 class="text-2xl font-bold text-center capitalize">
