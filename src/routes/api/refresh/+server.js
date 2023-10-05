@@ -44,8 +44,6 @@ export async function POST({ url }) {
 			throw new Error(`Classroom ${classroom_name} xata record has no code.`);
 		}
 
-		let today = new Date();
-
 		let todayMinus5 = new Date();
 		todayMinus5.setDate(todayMinus5.getDate() - 2);
 
