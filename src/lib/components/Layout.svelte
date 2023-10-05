@@ -18,8 +18,8 @@
 
 	<div class="my-12 space-y-4 text-center">
 		<p>
-			¿Desas apoyar este proyecto? Tu generosa contribución nos ayuda a mantener esta aplicación
-			gratuita para toda la comunidad universitaria.
+			¿Deseas apoyar este proyecto? Tu contribución nos ayuda a mantener esta aplicación gratuita
+			para toda la comunidad universitaria.
 		</p>
 		<div
 			class="w-64 h-64 mx-auto flex items-center justify-center overflow-hidden rounded-lg border"
