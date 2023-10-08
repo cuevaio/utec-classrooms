@@ -45,16 +45,16 @@ export async function POST({ url }) {
 		}
 
 		let todayMinus5 = new Date();
-		todayMinus5.setDate(todayMinus5.getDate() - 12);
+		todayMinus5.setDate(todayMinus5.getDate() - 5);
 
 		let todayMinus3 = new Date();
-		todayMinus3.setDate(todayMinus3.getDate() - 10);
+		todayMinus3.setDate(todayMinus3.getDate() - 3);
 
 		let todayPlus7 = new Date();
-		todayPlus7.setDate(todayPlus7.getDate() + 17);
+		todayPlus7.setDate(todayPlus7.getDate() + 7);
 
 		let todayPlus9 = new Date();
-		todayPlus9.setDate(todayPlus9.getDate() + 19);
+		todayPlus9.setDate(todayPlus9.getDate() + 9);
 
 		let queryparams = new URLSearchParams({
 			codaula: String(classroom.code),
