@@ -45,10 +45,10 @@ export async function POST({ url }) {
 		}
 
 		let todayMinus5 = new Date();
-		todayMinus5.setDate(todayMinus5.getDate() - 2);
+		todayMinus5.setDate(todayMinus5.getDate() - 12);
 
 		let todayMinus3 = new Date();
-		todayMinus3.setDate(todayMinus3.getDate() - 3);
+		todayMinus3.setDate(todayMinus3.getDate() - 10);
 
 		let todayPlus7 = new Date();
 		todayPlus7.setDate(todayPlus7.getDate() + 17);
@@ -58,8 +58,8 @@ export async function POST({ url }) {
 
 		let queryparams = new URLSearchParams({
 			codaula: String(classroom.code),
-			fechainicial: todayMinus3.toLocaleDateString('es-PE'),
-			fechafinal: todayPlus7.toLocaleDateString('es-PE')
+			fechainicial: todayMinus3.toLocaleDateString('en-GB', { timeZone: 'America/Lima' }),
+			fechafinal: todayPlus7.toLocaleDateString('en-GB', { timeZone: 'America/Lima' })
 		});
 
 		let response = await fetch(
@@ -107,7 +107,6 @@ export async function POST({ url }) {
 			});
 
 		let existing_events = existing_events_page.records;
-
 		let events_to_create = await Promise.all(
 			raw_events.map(async ({ title, start, end }) => {
 				let event_start = parseDatetime(start);
@@ -196,7 +195,9 @@ export async function POST({ url }) {
 		);
 	} catch (e) {
 		console.log(e);
-		return new Response(JSON.stringify(e));
+		return new Response(JSON.stringify(e), {
+			status: 500
+		});
 	}
 }
 
