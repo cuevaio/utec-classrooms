@@ -4,6 +4,7 @@
 	<div class="sticky top-0 z-[9999] bg-white">
 		<nav class="h-20 flex justify-between items-center">
 			<slot name="navbar" />
+			<span>LASUUU 🔥</span>
 		</nav>
 	</div>
 
