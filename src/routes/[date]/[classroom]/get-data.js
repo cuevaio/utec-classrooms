@@ -1,6 +1,7 @@
 import { getXataClient } from '$lib/xata';
 import { error } from '@sveltejs/kit';
 let xata = getXataClient();
+import { compareAsc } from 'date-fns';
 
 /**
  *
@@ -22,7 +23,7 @@ export async function getData(classroom_name, day_start, day_end) {
 		}
 
 		let events = await xata.db.event
-			.select(['*', 'classroom.*', 'course.*', 'host.*'])
+			.select(['*', 'classroom.*', 'course.*'])
 			.filter({
 				$all: [
 					{
@@ -40,19 +41,17 @@ export async function getData(classroom_name, day_start, day_end) {
 					}
 				]
 			})
-			.getPaginated();
-
-		events.records.sort((a, b) => {
-			if (!!a.start && !!b.start) {
-				return a.start.getTime() - b.start.getTime();
-			}
-			return 0;
-		});
-
+      .sort("start", "asc")
+			.getPaginated({
+				consistency: 'eventual'
+			});
+      
 		let yesterday = new Date(day_start);
 		yesterday.setDate(yesterday.getDate() - 1);
 
-    console.log(`finished getting data for /${day_start.toISOString().split('T')[0]}/${classroom_name}`)
+		console.log(
+			`finished getting data for /${day_start.toISOString().split('T')[0]}/${classroom_name}`
+		);
 		return {
 			events: events.records,
 			classroom,
@@ -61,7 +60,9 @@ export async function getData(classroom_name, day_start, day_end) {
 			yesterday: yesterday.toISOString().split('T')[0]
 		};
 	} catch (err) {
-    console.log(`error while getting data for /${day_start.toISOString().split('T')[0]}/${classroom_name}`)
+		console.log(
+			`error while getting data for /${day_start.toISOString().split('T')[0]}/${classroom_name}`
+		);
 		console.error(err);
 		error(500, 'Internal Server Error');
 		return {

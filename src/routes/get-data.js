@@ -18,7 +18,7 @@ export async function getData(day_start) {
 				desired_end.setHours(desired_end.getHours() + i + 1);
 
 				let intercepting_events = await xata.db.event
-					.select(['*', 'classroom.*', 'course.*', 'host.*'])
+					.select(['*', 'classroom.*', 'course.*'])
 					.filter({
 						$any: [
 							{
@@ -65,52 +65,24 @@ export async function getData(day_start) {
 							}
 						]
 					})
+          .sort("classroom.name", "asc")
 					.getPaginated({
 						pagination: {
 							size: 100
-						}
+						},
+						consistency: 'eventual'
 					});
 
-				/** @type {import("$lib/xata/types").ClassroomRecord[]} */
-				let bussy_classrooms = [];
+				let free_classrooms = classrooms
+					.filter((classroom) => {
+						let intercepting_event = intercepting_events.records.find(
+							(e) => e.classroom?.name === classroom.name
+						);
 
-				intercepting_events.records.forEach((event) => {
-					if (!!event.classroom) {
-						if (!bussy_classrooms.find((c) => c.id === event.classroom?.id)) {
-							bussy_classrooms.push(event.classroom);
-						}
-					}
-				});
-
-				// sort by name
-				bussy_classrooms.sort((a, b) => {
-					if (!a.name || !b.name) {
-						return 0;
-					}
-
-					if (a.name < b.name) {
-						return -1;
-					}
-					return 1;
-				});
-
-				/** @type {Set<string>} */
-				let free_classrooms_set = new Set();
-
-				classrooms.forEach((classroom) => {
-					if (!bussy_classrooms.find((c) => c.name === classroom.name)) {
-						free_classrooms_set.add(classroom.name);
-					}
-				});
-
-				let free_classrooms = Array.from(free_classrooms_set);
-
-				free_classrooms.sort((a, b) => {
-					if (a < b) {
-						return -1;
-					}
-					return 1;
-				});
+						return !intercepting_event;
+					})
+					.map((classroom) => classroom.name)
+					.sort();
 
 				return {
 					start: desired_start,
