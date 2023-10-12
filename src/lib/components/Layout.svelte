@@ -22,7 +22,7 @@
 		<div class="space-y-4 text-center">
 			<p>
 				¿Deseas apoyar este proyecto? Tu contribución nos ayuda a mantener esta aplicación gratuita
-				para toda la comunidad universitaria.
+				para toda la comunidad universitaria :D
 			</p>
 			<div
 				class="w-64 h-64 mx-auto flex items-center justify-center overflow-hidden rounded-lg border"
