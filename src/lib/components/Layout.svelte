@@ -33,8 +33,7 @@
 		</div>
 
 		<div class="flex flex-col space-y-1 text-center">
-			<p>Creado por Mary Ann Mariños y <a href="https://www.cuevantn.com/">Anthony Cueva</a></p>
-			<a href="https://www.instagram.com/maryannmarinos">@maryannmarinos (Instagram)</a>
+			<p>Creado por <a href="https://www.cuevantn.com/">Anthony Cueva</a></p>
 			<a href="https://x.com/cuevantn">@cuevantn (x)</a>
 		</div>
 
