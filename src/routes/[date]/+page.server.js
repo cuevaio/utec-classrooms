@@ -2,7 +2,7 @@ import { getData } from '../get-data';
 
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params }) {
-	let day_start = new Date(`${params.date}T11:00:00.000Z`);
+	let day_start = new Date(`${params.date}T12:00:00.000Z`);
 
 	return getData(day_start);
 }
@@ -25,7 +25,6 @@ export function entries() {
 		});
 	});
 
-	console.log(dates);
 	return dates;
 }
 
