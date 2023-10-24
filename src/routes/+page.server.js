@@ -11,7 +11,7 @@ export async function load() {
 	today_month = today_month.padStart(2, '0');
 	today_day = today_day.padStart(2, '0');
 
-	let day_start = new Date(`${today_year}-${today_month}-${today_day}T14:00:00.000Z`);
+	let day_start = new Date(`${today_year}-${today_month}-${today_day}T11:00:00.000Z`);
 
 	return getData(day_start);
 }
