@@ -4,7 +4,7 @@
 	<div class="sticky top-0 z-[9999] bg-white">
 		<nav class="h-20 flex justify-between items-center">
 			<slot name="navbar" />
-			<a href="https://forms.gle/6PeNXHw1AgXp14466">Danos Feedback 🙏</a>
+			<a href="https://forms.gle/6PeNXHw1AgXp14466">Danos Feedback🙏</a>
 		</nav>
 	</div>
 
