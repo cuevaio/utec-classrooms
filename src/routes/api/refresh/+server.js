@@ -50,16 +50,16 @@ export async function POST({ url }) {
 		let todayMinus3 = new Date();
 		todayMinus3.setDate(todayMinus3.getDate() - 3);
 
-		let todayPlus7 = new Date();
-		todayPlus7.setDate(todayPlus7.getDate() + 7);
+		let todayPlus17 = new Date();
+		todayPlus17.setDate(todayPlus17.getDate() + 17);
 
-		let todayPlus9 = new Date();
-		todayPlus9.setDate(todayPlus9.getDate() + 9);
+		let todayPlus19 = new Date();
+		todayPlus19.setDate(todayPlus19.getDate() + 19);
 
 		let queryparams = new URLSearchParams({
 			codaula: String(classroom.code),
 			fechainicial: todayMinus3.toLocaleDateString('en-GB', { timeZone: 'America/Lima' }),
-			fechafinal: todayPlus7.toLocaleDateString('en-GB', { timeZone: 'America/Lima' })
+			fechafinal: todayPlus17.toLocaleDateString('en-GB', { timeZone: 'America/Lima' })
 		});
 
 		let response = await fetch(
@@ -95,7 +95,7 @@ export async function POST({ url }) {
 					},
 					{
 						end: {
-							$le: todayPlus9
+							$le: todayPlus19
 						}
 					}
 				]
