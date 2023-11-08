@@ -1,7 +1,6 @@
 import { getXataClient } from '$lib/xata';
 import { error } from '@sveltejs/kit';
 let xata = getXataClient();
-import { compareAsc } from 'date-fns';
 
 /**
  *
@@ -41,17 +40,14 @@ export async function getData(classroom_name, day_start, day_end) {
 					}
 				]
 			})
-      .sort("start", "asc")
+			.sort('start', 'asc')
 			.getPaginated({
 				consistency: 'eventual'
 			});
-      
+
 		let yesterday = new Date(day_start);
 		yesterday.setDate(yesterday.getDate() - 1);
 
-		console.log(
-			`finished getting data for /${day_start.toISOString().split('T')[0]}/${classroom_name}`
-		);
 		return {
 			events: events.records,
 			classroom,

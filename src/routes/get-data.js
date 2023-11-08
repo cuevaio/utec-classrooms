@@ -10,7 +10,7 @@ let xata = getXataClient();
 export async function getData(day_start) {
 	try {
 		let free = await Promise.all(
-			new Array(20).fill(0).map(async (_, i) => {
+			new Array(15).fill(0).map(async (_, i) => {
 				let desired_start = new Date(day_start);
 				desired_start.setHours(desired_start.getHours() + i);
 
