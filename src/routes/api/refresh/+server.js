@@ -106,7 +106,9 @@ export async function POST({ url }) {
 				}
 			});
 
-		let existing_events = existing_events_page.records;
+		let existing_events = [...existing_events_page.records];
+		// in each iteration, we'll remove the event from the array if its in the UTEC API response
+
 		let events_to_create = await Promise.all(
 			raw_events.map(async ({ title, start, end }) => {
 				let event_start = parseDatetime(start);
@@ -119,7 +121,9 @@ export async function POST({ url }) {
 						e.end?.toISOString() === event_end.toISOString()
 				);
 
-				if (existing_event) {
+				if (!!existing_event) {
+					// remove from existing events array
+					existing_events = existing_events.filter((e) => e.id !== existing_event?.id);
 					return null;
 				}
 
@@ -183,6 +187,9 @@ export async function POST({ url }) {
 
 		// @ts-ignore
 		let created_events = await xata.db.event.create(events_to_create.filter((e) => e !== null));
+
+		// delete events that don't exist anymore
+		await xata.db.event.delete(existing_events.map((e) => e.id));
 
 		return new Response(
 			JSON.stringify({
