@@ -1,20 +1,12 @@
-<div
-	class="max-w-[700px] px-8 mx-auto font-mono h-[100dvh] overflow-auto [scrollbar-gutter:stable]"
->
-	<div class="sticky top-0 z-[9999] bg-white">
-		<nav class="h-20 flex justify-between items-center">
-			<slot name="navbar" />
-			<a href="https://forms.gle/XS2eWzvLALiayZXM6">Danos Feedback🙏</a>
-		</nav>
-	</div>
+<script>
+	import DayNavigationPrimary from '$lib/components/day/DayNavigationPrimary.svelte';
+	import DayNavigationSecondary from '$lib/components/day/DayNavigationSecondary.svelte';
+</script>
 
+<div class="max-w-[700px] px-8 mx-auto h-[100dvh] overflow-auto [scrollbar-gutter:stable]">
+	<DayNavigationPrimary />
 	<slot />
-
-	<div class="sticky bottom-0 z-[9999] bg-white">
-		<nav class="h-20 flex justify-between items-center">
-			<slot name="footer" />
-		</nav>
-	</div>
+	<DayNavigationSecondary />
 
 	<div class="my-12 space-y-12">
 		<div class="text-center">¿Te gusta la app? ¡Cuéntale a tus amigos!</div>

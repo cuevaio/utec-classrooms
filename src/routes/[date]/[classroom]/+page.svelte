@@ -3,7 +3,6 @@
 	export let data;
 
 	import Layout from '$lib/components/Layout.svelte';
-	import DayNavigation from '$lib/components/DayNavigation.svelte';
 
 	/** @type {number[]}*/
 	let hours_to_hide = [];
@@ -42,17 +41,6 @@
 </svelte:head>
 
 <Layout>
-	<svelte:fragment slot="navbar">
-		<a href={`/${data.today}`}
-			>{new Date(`${data.today}T14:00:00.000Z`)
-				.toLocaleDateString('es-PE', {
-					weekday: 'long'
-				})
-				.toLocaleUpperCase()}
-			{data.today}</a
-		>
-	</svelte:fragment>
-
 	<h1 class="text-2xl font-bold text-center">{data.classroom?.name}</h1>
 
 	<div
@@ -103,13 +91,4 @@
 			{/each}
 		</div>
 	</div>
-
-	<svelte:fragment slot="footer">
-		<DayNavigation
-			yesterday={data.yesterday}
-			today={data.today}
-			tomorrow={data.tomorrow}
-			classroom={data.classroom?.name}
-		/>
-	</svelte:fragment>
 </Layout>

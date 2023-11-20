@@ -65,7 +65,7 @@ export async function getData(day_start) {
 							}
 						]
 					})
-          .sort("classroom.name", "asc")
+					.sort('classroom.name', 'asc')
 					.getPaginated({
 						pagination: {
 							size: 100

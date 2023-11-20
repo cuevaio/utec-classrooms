@@ -1,106 +1,106 @@
 {
-  "tables": [
-    {
-      "name": "event",
-      "columns": [
-        {
-          "name": "course",
-          "type": "link",
-          "link": {
-            "table": "course"
-          }
-        },
-        {
-          "name": "host",
-          "type": "link",
-          "link": {
-            "table": "host"
-          }
-        },
-        {
-          "name": "classroom",
-          "type": "link",
-          "link": {
-            "table": "classroom"
-          }
-        },
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "start",
-          "type": "datetime"
-        },
-        {
-          "name": "end",
-          "type": "datetime"
-        }
-      ]
-    },
-    {
-      "name": "classroom",
-      "columns": [
-        {
-          "name": "max",
-          "type": "int",
-          "notNull": true,
-          "defaultValue": "0"
-        },
-        {
-          "name": "name",
-          "type": "string",
-          "unique": true
-        },
-        {
-          "name": "code",
-          "type": "int",
-          "unique": true
-        }
-      ],
-      "revLinks": [
-        {
-          "column": "classroom",
-          "table": "event"
-        }
-      ]
-    },
-    {
-      "name": "host",
-      "columns": [
-        {
-          "name": "name",
-          "type": "string",
-          "unique": true
-        }
-      ],
-      "revLinks": [
-        {
-          "column": "host",
-          "table": "event"
-        }
-      ]
-    },
-    {
-      "name": "course",
-      "columns": [
-        {
-          "name": "name",
-          "type": "string",
-          "defaultValue": "error"
-        },
-        {
-          "name": "code",
-          "type": "string",
-          "unique": true
-        }
-      ],
-      "revLinks": [
-        {
-          "column": "course",
-          "table": "event"
-        }
-      ]
-    }
-  ]
+	"tables": [
+		{
+			"name": "event",
+			"columns": [
+				{
+					"name": "course",
+					"type": "link",
+					"link": {
+						"table": "course"
+					}
+				},
+				{
+					"name": "host",
+					"type": "link",
+					"link": {
+						"table": "host"
+					}
+				},
+				{
+					"name": "classroom",
+					"type": "link",
+					"link": {
+						"table": "classroom"
+					}
+				},
+				{
+					"name": "name",
+					"type": "string"
+				},
+				{
+					"name": "start",
+					"type": "datetime"
+				},
+				{
+					"name": "end",
+					"type": "datetime"
+				}
+			]
+		},
+		{
+			"name": "classroom",
+			"columns": [
+				{
+					"name": "max",
+					"type": "int",
+					"notNull": true,
+					"defaultValue": "0"
+				},
+				{
+					"name": "name",
+					"type": "string",
+					"unique": true
+				},
+				{
+					"name": "code",
+					"type": "int",
+					"unique": true
+				}
+			],
+			"revLinks": [
+				{
+					"column": "classroom",
+					"table": "event"
+				}
+			]
+		},
+		{
+			"name": "host",
+			"columns": [
+				{
+					"name": "name",
+					"type": "string",
+					"unique": true
+				}
+			],
+			"revLinks": [
+				{
+					"column": "host",
+					"table": "event"
+				}
+			]
+		},
+		{
+			"name": "course",
+			"columns": [
+				{
+					"name": "name",
+					"type": "string",
+					"defaultValue": "error"
+				},
+				{
+					"name": "code",
+					"type": "string",
+					"unique": true
+				}
+			],
+			"revLinks": [
+				{
+					"column": "course",
+					"table": "event"
+				}
+			]
+		}
+	]
 }

@@ -2,7 +2,6 @@
 	import { selected_classroom } from '$lib/stores/selected-classroom';
 	import { goto } from '$app/navigation';
 	import Layout from '$lib/components/Layout.svelte';
-	import DayNavigation from '$lib/components/DayNavigation.svelte';
 
 	/** @type {import('./$types').PageServerData} */
 	export let data;
@@ -25,17 +24,6 @@
 
 {#if !data.error}
 	<Layout>
-		<svelte:fragment slot="navbar">
-			<a href="/">UTEC Classrooms</a>
-		</svelte:fragment>
-
-		<h1 class="text-2xl font-bold text-center capitalize">
-			{new Date(`${data.today}T14:00:00.000Z`).toLocaleDateString('es-PE', {
-				weekday: 'long'
-			})}
-			{data.today}
-		</h1>
-
 		<div class="grid grid-cols-1 gap-6 my-8">
 			{#each data.free as { classrooms, start }}
 				<div
@@ -62,10 +50,6 @@
 				</div>
 			{/each}
 		</div>
-
-		<svelte:fragment slot="footer">
-			<DayNavigation yesterday={data.yesterday} today={data.today} tomorrow={data.tomorrow} />
-		</svelte:fragment>
 	</Layout>
 {/if}
 
