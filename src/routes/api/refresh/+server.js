@@ -33,10 +33,11 @@ let xata = getXataClient();
  */
 
 /** @type {import('./$types').RequestHandler} */
-export async function POST({ url }) {
+export async function GET({ url }) {
 	try {
 		let classroom_name = url.searchParams.get('classroom_name') ?? 'A101';
 		let utec_token = url.searchParams.get('utec_token') ?? UTEC_TOKEN;
+		let sessionId = url.searchParams.get('sessionId') ?? '1';
 
 		let classroom = await xata.db.classroom.filter({ name: classroom_name }).getFirstOrThrow();
 
@@ -56,27 +57,48 @@ export async function POST({ url }) {
 		let todayPlus19 = new Date();
 		todayPlus19.setDate(todayPlus19.getDate() + 19);
 
-		let queryparams = new URLSearchParams({
-			codaula: String(classroom.code),
-			fechainicial: todayMinus3.toLocaleDateString('en-GB', { timeZone: 'America/Lima' }),
-			fechafinal: todayPlus17.toLocaleDateString('en-GB', { timeZone: 'America/Lima' })
+		let payload = JSON.stringify({
+			codAula: classroom.code,
+			fechaInicial: todayMinus3.toLocaleDateString('en-GB', { timeZone: 'America/Lima' }),
+			fechaFinal: todayPlus17.toLocaleDateString('en-GB', { timeZone: 'America/Lima' })
 		});
 
-		let response = await fetch(
-			`https://api.utec.edu.pe/reserva-api/calendarioaula/eventos?${queryparams.toString()}`,
-			{
-				method: 'GET',
-				headers: {
-					'X-Auth-Token': utec_token
-				}
+		let response = await fetch('https://reserva-intranet.utec.edu.pe/events/', {
+			method: 'POST',
+			body: payload,
+			headers: {
+				'X-Auth-Token': utec_token,
+				Cookie: `sessionId=${sessionId}`,
+
+				Accept: 'application/json, text/plain, */*',
+				'Accept-Encoding': 'gzip, deflate, br',
+				'Accept-Language': 'en-US,en;q=0.6',
+				'Content-Length': '70',
+				'Content-Type': 'application/json',
+				Origin: 'https://reserva-intranet.utec.edu.pe',
+				Referer: 'https://reserva-intranet.utec.edu.pe/reserva/aulalibre',
+				'Sec-Ch-Ua': '"Brave";v="119", "Chromium";v="119", "Not?A_Brand";v="24"',
+				'Sec-Ch-Ua-Mobile': '?0',
+				'Sec-Ch-Ua-Platform': 'Windows',
+				'Sec-Fetch-Dest': 'empty',
+				'Sec-Fetch-Mode': 'cors',
+				'Sec-Fetch-Site': 'same-origin',
+				'Sec-Gpc': '1',
+				'User-Agent':
+					'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36'
 			}
-		);
+		});
 
 		if (!response.ok) {
-			throw new Error(`UTEC API returned ${response.status}`);
+			console.log(response);
+			return new Response(JSON.stringify({ error: "UTEC API doesn't love you" }), {
+				status: 404
+			});
 		}
 
 		let data = await response.json();
+
+		console.log(data);
 
 		/** @type {RawEvent[]} */
 		const raw_events = data.content;
@@ -194,7 +216,8 @@ export async function POST({ url }) {
 		return new Response(
 			JSON.stringify({
 				// @ts-ignore
-				created: created_events.length
+				created: created_events.length,
+				deleted: existing_events.length
 			}),
 			{
 				status: 200
