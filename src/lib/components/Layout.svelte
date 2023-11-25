@@ -1,6 +1,8 @@
 <script>
 	import DayNavigationPrimary from '$lib/components/day/DayNavigationPrimary.svelte';
 	import DayNavigationSecondary from '$lib/components/day/DayNavigationSecondary.svelte';
+	import TheFirstClone from './TheFirstClone.svelte';
+	import TypographyLink from '$lib/components/TypographyLink.svelte';
 </script>
 
 <div class="max-w-[700px] px-8 mx-auto h-[100dvh] overflow-auto [scrollbar-gutter:stable]">
@@ -13,7 +15,7 @@
 
 		<div class="space-y-4 text-center">
 			<p>
-				Tu <a href="/sponsors" class="font-mono hover:underline font-semibold">contribución</a> por Yape / Plin nos ayuda a
+				Tu <TypographyLink href="/sponsors">contribución</TypographyLink> por Yape / Plin nos ayuda a
 				mantener esta aplicación gratuita ❤️
 			</p>
 			<div
@@ -24,24 +26,21 @@
 		</div>
 
 		<div class="text-center">
-			<a href="https://forms.gle/XdhREytEyYCucM187" class="font-mono hover:underline"
-				>Danos feedback 🙏</a
-			>
+			<TypographyLink href="https://forms.gle/XdhREytEyYCucM187">Danos feedback 🙏</TypographyLink>
 		</div>
 
 		<div class="flex flex-col space-y-1 text-center">
 			<p>
-				Creado por <a href="https://www.cuevantn.com/" class="font-mono hover:underline"
-					>Anthony Cueva</a
-				>
+				Creado por <TypographyLink href="https://www.cuevantn.com/">Anthony Cueva</TypographyLink>
 			</p>
-			<a href="https://x.com/cuevantn" class="font-mono hover:underline">@cuevantn (x)</a>
+			<TypographyLink href="https://x.com/cuevantn">@cuevantn (x)</TypographyLink>
 		</div>
 
 		<div class="flex flex-col space-y-1 text-center">
-			<a href="https://github.com/cuevantn/utec-classrooms/" class="font-mono hover:underline"
-				>Source code (Github)</a
-			>
+			<TypographyLink href="https://github.com/cuevantn/utec-classrooms/">
+				Source code (Github)
+			</TypographyLink>
 		</div>
+		<TheFirstClone />
 	</div>
 </div>
