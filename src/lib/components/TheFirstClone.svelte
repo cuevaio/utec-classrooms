@@ -27,12 +27,12 @@
 
 		<div>
 			<p>
-				<TypographyLink href="/mail.png">Hace 2 meses</TypographyLink>, cree UTEC Classrooms.
+				<TypographyLink href="/TheFirstClone/mail.png">Hace 2 meses</TypographyLink> cree UTEC Classrooms.
 			</p>
 		</div>
 		<div>
 			<p>
-				Diariamente, esta app ayuda a <TypographyLink href="/vercel.png"
+				Diariamente, esta app ayuda a <TypographyLink href="/TheFirstClone/vercel.png"
 					>~150 estudiantes</TypographyLink
 				> a encontrar un salón donde estudiar, trabajar, innovar y emprender.
 			</p>
@@ -69,8 +69,9 @@
 		</div>
 		<div>
 			<p>
-				Invito a la comunidad a revisar el código de UTEC Classrooms, forkear, contribuir y/o crear
-				sus propias versiones.
+				Invito a la comunidad a revisar <TypographyLink
+					href="https://github.com/cuevantn/utec-classrooms/">el código</TypographyLink
+				>, forkear, contribuir a la repo original y/o crear sus propias versiones.
 			</p>
 			<p>Solamente no olviden incluir un pequeño enlace a UTEC Classrooms.</p>
 		</div>
