@@ -27,7 +27,7 @@
 
 		<div>
 			<p>
-				<TypographyLink href="/TheFirstClone/mail.png">Hace 2 meses</TypographyLink> cree UTEC Classrooms.
+				<TypographyLink href="/TheFirstClone/mail.png">Hace 2 meses</TypographyLink> creé UTEC Classrooms.
 			</p>
 		</div>
 		<div>
