@@ -70,9 +70,22 @@
 				style={`grid-row-start: ${start}; grid-row-end: ${end};`}
 				class="rounded-lg flex bg-gray-200 items-center justify-center mx-2 mt-1.5"
 			>
-				<p style="text-wrap: balance;" class="z-5 w-2/3 text-center">
-					{event.name || event.course?.name}
-				</p>
+				<div class="z-5 w-2/3 text-center">
+					<p style="text-wrap: balance;" class=" font-bold">{event.name || event.course?.name}</p>
+
+					<div class="flex items-center justify-center text-xs space-x-4">
+						{#if event.course}
+							<span>
+								{event.course?.code}
+							</span>
+						{/if}
+						{#if event.host}
+							<span>
+								{event.host.name}
+							</span>
+						{/if}
+					</div>
+				</div>
 			</div>
 		{/each}
 		<div

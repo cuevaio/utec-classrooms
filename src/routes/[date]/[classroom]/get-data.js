@@ -22,7 +22,7 @@ export async function getData(classroom_name, day_start, day_end) {
 		}
 
 		let events = await xata.db.event
-			.select(['*', 'classroom.*', 'course.*'])
+			.select(['*', 'classroom.*', 'course.name', 'course.code', 'host.name'])
 			.filter({
 				$all: [
 					{
