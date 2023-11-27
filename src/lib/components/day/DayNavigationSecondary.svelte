@@ -35,8 +35,17 @@
 		<ChevronsLeft className="h-4 w-4" />
 	</Button>
 
-	<h1 class="font-bold">Semana {week_number}</h1>
-
+	<div class="flex flex-col items-center justify-center">
+		<h1 class="font-bold leading-none">Semana {week_number === 16 ? 'FINAAAAL' : week_number}</h1>
+		{#if week_number === 16}
+			<a
+				href="https://youtu.be/lSm4QZqN8cA"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-xs leading-none	">🎉💪¡A darle con todo! 📚✨</a
+			>
+		{/if}
+	</div>
 	<Button
 		variant="outline"
 		size="icon"
