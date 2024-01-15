@@ -16,7 +16,7 @@
 	// (weeks since 2023-08-14) + 1
 	$: week_number =
 		Math.floor(
-			(today_date.getTime() - new Date('2023-08-14T14:00:00.000Z').getTime()) /
+			(today_date.getTime() - new Date('2024-01-08T14:00:00.000Z').getTime()) /
 				(7 * 24 * 60 * 60 * 1000)
 		) + 1;
 
@@ -36,7 +36,7 @@
 	</Button>
 
 	<div class="flex flex-col items-center justify-center">
-		<h1 class="font-bold leading-none">Semana {week_number === 16 ? 'FINAAAAL' : week_number}</h1>
+		<h1 class="font-bold leading-none">[2024-0] Semana {week_number === 16 ? 'FINAAAAL' : week_number}</h1>
 		{#if week_number === 16}
 			<a
 				href="https://youtu.be/lSm4QZqN8cA"

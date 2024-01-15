@@ -41,6 +41,5 @@
 				Source code (Github)
 			</TypographyLink>
 		</div>
-		<TheFirstClone />
 	</div>
 </div>
