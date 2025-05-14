@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
@@ -10,7 +8,6 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
 import { ThemePicker } from "@/components/theme-picker";
-import { Fathom } from "./fathom";
 
 export const metadata: Metadata = {
   title: "Classrooms",
@@ -31,7 +28,6 @@ export default function RootLayout({
           "bg-background font-sans antialiased min-h-screen overflow-y-scroll"
         )}
       >
-        <Fathom />
         <Providers>
           <div className="flex p-2 items-center mb-2 bg-foreground">
             <div className="flex-none w-16">
@@ -57,11 +53,11 @@ export default function RootLayout({
             <div className="flex-1 text-center">
               <p className="text-xs underline">
                 <a
-                  href="https://www.caverne.io"
+                  href="https://www.cueva.io"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  © 2024 Anthony Cueva
+                  © 2025 Anthony Cueva
                 </a>
               </p>
             </div>
