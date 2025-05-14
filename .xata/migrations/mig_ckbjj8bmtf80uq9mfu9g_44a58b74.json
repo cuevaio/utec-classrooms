@@ -1,0 +1,19 @@
+{
+  "id": "mig_ckbjj8bmtf80uq9mfu9g",
+  "parentID": "mig_ckbjj5jmtf80uq9mfu8g",
+  "checksum": "1:44a58b74d2ee83d9d361013f7ae43b92cdf3a03f7e1b613ea82dd1ca3d40642c",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "classroom",
+          "type": "link",
+          "link": {
+            "table": "classroom"
+          }
+        },
+        "table": "event"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "id": "mig_ckbib3bmtf80uq9mfphg",
+  "parentID": "mig_ckbiarrmtf80uq9mfpgg",
+  "checksum": "1:faba8f506bf9fedcf2780e45f0c7420e1aef53abd0f17898d9164fe4a2d59703",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "code",
+          "type": "string",
+          "unique": true
+        },
+        "table": "course"
+      }
+    }
+  ]
+}

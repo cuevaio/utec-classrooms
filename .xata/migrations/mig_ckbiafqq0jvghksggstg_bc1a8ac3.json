@@ -1,0 +1,17 @@
+{
+  "id": "mig_ckbiafqq0jvghksggstg",
+  "parentID": "mig_ckbiacma4oscu6s5nfc0",
+  "checksum": "1:bc1a8ac309f58fe29d0e35cb701f86e4c0d34b9849021af0ad57830b742b9116",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "code",
+          "type": "int",
+          "unique": true
+        },
+        "table": "classroom"
+      }
+    }
+  ]
+}

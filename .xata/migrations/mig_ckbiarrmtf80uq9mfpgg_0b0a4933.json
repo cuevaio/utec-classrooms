@@ -1,0 +1,17 @@
+{
+  "id": "mig_ckbiarrmtf80uq9mfpgg",
+  "parentID": "mig_ckbiam6a4oscu6s5nfd0",
+  "checksum": "1:0b0a4933e318e759bb260dbf29ad816a77555b4b1b3a10dee6c9140d91c7a3b4",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string",
+          "defaultValue": "error"
+        },
+        "table": "course"
+      }
+    }
+  ]
+}

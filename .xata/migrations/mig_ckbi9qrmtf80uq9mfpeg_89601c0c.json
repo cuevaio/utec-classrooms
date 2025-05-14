@@ -1,0 +1,12 @@
+{
+  "id": "mig_ckbi9qrmtf80uq9mfpeg",
+  "parentID": "mig_ckbi9prmtf80uq9mfpd0",
+  "checksum": "1:89601c0cdd410d5bddf3ee1e28bfb88caeaaeafb62682a009876773639439617",
+  "operations": [
+    {
+      "addTable": {
+        "table": "course"
+      }
+    }
+  ]
+}

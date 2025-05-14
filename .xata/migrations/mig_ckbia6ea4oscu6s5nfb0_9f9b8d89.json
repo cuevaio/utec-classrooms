@@ -1,0 +1,18 @@
+{
+  "id": "mig_ckbia6ea4oscu6s5nfb0",
+  "parentID": "mig_ckbi9qrmtf80uq9mfpeg",
+  "checksum": "1:9f9b8d8980a2a53b48d246df8672dc48778a5713ed1040b0dfbb8ed9180afb98",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "max",
+          "type": "int",
+          "notNull": true,
+          "defaultValue": "0"
+        },
+        "table": "classroom"
+      }
+    }
+  ]
+}

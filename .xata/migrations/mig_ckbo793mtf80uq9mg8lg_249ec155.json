@@ -1,0 +1,13 @@
+{
+  "id": "mig_ckbo793mtf80uq9mg8lg",
+  "parentID": "mig_ckbjk23mtf80uq9mfubg",
+  "checksum": "1:249ec15537418ee3688f7e5bd282a284eaf5bf382005921466b1994c3b92d741",
+  "operations": [
+    {
+      "removeColumn": {
+        "column": "name",
+        "table": "host"
+      }
+    }
+  ]
+}

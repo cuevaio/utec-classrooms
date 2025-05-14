@@ -1,0 +1,17 @@
+{
+  "id": "mig_ckbo7bqq0jvghksghn6g",
+  "parentID": "mig_ckbo793mtf80uq9mg8lg",
+  "checksum": "1:685e93e6add1b3ad61fdad42a2d2f74a27b819a69dc829a65ce8aad1a3f53f1d",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "name",
+          "type": "string",
+          "unique": true
+        },
+        "table": "host"
+      }
+    }
+  ]
+}

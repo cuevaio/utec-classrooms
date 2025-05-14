@@ -1,0 +1,19 @@
+{
+  "id": "mig_ckbjj3qq0jvghksgh0r0",
+  "parentID": "mig_ckbib3bmtf80uq9mfphg",
+  "checksum": "1:85eaa517da0ebb9b9909d52b2c9e081a6a56be6cf388cc9e0ae9033b93d5406d",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "course",
+          "type": "link",
+          "link": {
+            "table": "course"
+          }
+        },
+        "table": "event"
+      }
+    }
+  ]
+}

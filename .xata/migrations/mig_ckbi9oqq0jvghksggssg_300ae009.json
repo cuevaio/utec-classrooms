@@ -1,0 +1,12 @@
+{
+  "id": "mig_ckbi9oqq0jvghksggssg",
+  "parentID": "mig_ckbi9mjmtf80uq9mfpbg",
+  "checksum": "1:300ae009b85644818f30c772b9a2a63f95a12fd11b5015573371c7f7df91454f",
+  "operations": [
+    {
+      "addTable": {
+        "table": "classroom"
+      }
+    }
+  ]
+}
