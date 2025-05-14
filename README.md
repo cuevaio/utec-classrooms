@@ -1,8 +1,48 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# UTEC Classrooms
+
+A Next.js application that helps students find available classrooms at UTEC campus.
+
+## Overview
+
+UTEC Classrooms displays real-time information about which classrooms are currently available at the UTEC campus. It works by:
+1. Fetching classroom event data from the UTEC API
+2. Filtering classrooms with no active events for each hour of the day
+3. Displaying the free classrooms in an intuitive interface
+
+## Features
+
+- Real-time availability status for all classrooms
+- Filter by time slot, building, or classroom type
+- Mobile-friendly responsive design
+- Quick view of upcoming availability
 
 ## Getting Started
 
-First, run the development server:
+First, clone the repository:
+
+```bash
+git clone https://github.com/yourusername/utec-classrooms.git
+cd utec-classrooms
+```
+
+Install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+```
+
+Create a `.env.local` file with the necessary API configuration:
+
+```
+NEXT_PUBLIC_API_URL=https://api.utec.edu.pe/reserva-api
+# Add other environment variables as needed
+```
+
+Run the development server:
 
 ```bash
 npm run dev
@@ -10,31 +50,49 @@ npm run dev
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technology Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Frontend**: Next.js, React, Tailwind CSS
+- **Database**: Xata for filtering and querying
+- **API Integration**: UTEC Reservation API
 
-## Learn More
+## API Integration
 
-To learn more about Next.js, take a look at the following resources:
+The application uses the UTEC API to fetch classroom data:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
+```bash
 curl --request GET \
  --url 'https://api.utec.edu.pe/reserva-api/filtro/aula/reservable/tipoaula?codsede=2&codtipoaula=0' \
- --header 'X-Auth-Token: eyJhbGciOiJIUzUxMiJ9.eyJleHAiOjE3MjAxMjMxNDIsInN1YiI6ImFudGhvbnkuY3VldmFAdXRlYy5lZHUucGUiLCJhdWRpZW5jZSI6InVuZGV0ZXJtaW5lZCIsImNyZWF0ZWQiOjE3MjAxMDg3NDIyMjF9.5bFcvJ719jIrhmssjrxGw1mctN0eWg_mildF1S0OVSP6xWBlVxI2UkmBpddJzxKvb8qFPzN25SRBkeV38Muxgw'
+ --header 'X-Auth-Token: YOUR_AUTH_TOKEN'
+```
+
+## Contributing
+
+Contributions are welcome! Here's how you can contribute:
+
+1. Fork the repository
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Make your changes
+4. Commit your changes (`git commit -m 'Add some amazing feature'`)
+5. Push to the branch (`git push origin feature/amazing-feature`)
+6. Open a Pull Request
+
+### Development Guidelines
+
+- Follow the existing code style and naming conventions
+- Write clear commit messages
+- Add tests for new features when possible
+- Update documentation as needed
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- UTEC for providing the classroom reservation API
+- All contributors who help improve this project
